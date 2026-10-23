@@ -12,8 +12,13 @@ copy .env.example .env                              # fill in locally, never com
 ## Run / test
 ```
 python -m pytest -q
-python -m agent.detector --mock                     # runs without the live demo
-python -m agent.detector                            # live; needs METRICS_URL + queries in .env
+python -m agent.detector --mock                     # synthetic data, no live demo (prints 3 incidents)
+python -m agent.detector --dry-run                  # live Prometheus, detect + print, no investigator hand-off
+python -m agent.detector                            # live, hands incidents to agent.investigator.investigate(incident)
+```
+Detector needs `METRICS_URL` and the PromQL queries in `.env` (see `.env.example`). Tunables: `BREACH_POLLS`, `COOLDOWN_S`, `SIGMA_K`, `ABS_FLOOR`, `BASELINE_WINDOW`.
+The detector polls (no alert webhook exists in the repo). Investigator must implement `investigate(incident) -> Diagnosis`; call `Detector.close(incident, status)` when an incident ends.
+```
 ```
 
 ## Folder map

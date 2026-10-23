@@ -113,6 +113,9 @@ class Config:
     baseline_window: int = 30
     breach_polls: int = 3
     cooldown_s: float = 300.0
+    sigma_k: float = 4.0  # breach = value > median + k * spread
+    abs_floor: float = 0.01  # minimum spread so flat baselines don't trigger on noise
+    min_baseline: int = 10  # polls needed before alerting
     error_rate_query: str = ""
     latency_p95_query: str = ""
     per_service_error_query: str = ""
@@ -131,6 +134,9 @@ def load_config(env: Optional[Dict[str, str]] = None) -> Config:
         baseline_window=int(e.get("BASELINE_WINDOW", d.baseline_window)),
         breach_polls=int(e.get("BREACH_POLLS", d.breach_polls)),
         cooldown_s=float(e.get("COOLDOWN_S", d.cooldown_s)),
+        sigma_k=float(e.get("SIGMA_K", d.sigma_k)),
+        abs_floor=float(e.get("ABS_FLOOR", d.abs_floor)),
+        min_baseline=int(e.get("MIN_BASELINE", d.min_baseline)),
         error_rate_query=e.get("ERROR_RATE_QUERY", d.error_rate_query),
         latency_p95_query=e.get("LATENCY_P95_QUERY", d.latency_p95_query),
         per_service_error_query=e.get("PER_SERVICE_ERROR_QUERY", d.per_service_error_query),
