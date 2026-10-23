@@ -1,8 +1,3 @@
-"""Shared contracts for the AI On-Call Engineer. Owner: P1.
-
-Everyone imports these types; do not redefine them in your own module.
-Fields tagged TODO(confirm) depend on the organizer's Action API / report schema.
-"""
 from __future__ import annotations
 
 import hashlib

@@ -1,11 +1,3 @@
-"""Anomaly detector. Owner: P1.
-
-Polls a metrics client, keeps a rolling baseline (median + MAD spread) per series, and opens an
-Incident when a series breaches for N consecutive polls. One open incident per symptom, with a cooldown.
-
-No alert/webhook exists in the repo (TODO(confirm) with organizers), so this polls Prometheus directly.
-Read-only: the only network call is an HTTP GET to the metrics API.
-"""
 from __future__ import annotations
 
 import argparse
